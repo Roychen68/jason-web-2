@@ -9,6 +9,12 @@
     <link rel="icon" href="./img/logo.png">
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="./css/style.css">
+    <style>
+        div.card{
+            transform: translateY(-200px);
+            width: 800px;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,8 +29,8 @@
         <a href="admin.php" id="admin">Admin</a>
     </header>
     <main>
-        <div>
-            <table id="panel" class="table table-bordered">
+        <div id="panel">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -65,6 +71,17 @@
                 </tbody>
             </table>
         </div>
+        <div class="card card-body" id="login">
+            <div class="form-group">
+                <label for="acc">帳號</label>
+                <input type="text" class="form-control" id="acc">
+            </div>
+            <div class="form-group">
+                <label for="ps">密碼</label>
+                <input type="text" class="form-control" id="ps">
+            </div>
+            <button class="btn btn-priamry" onclick="login()">Login(登入)</button>
+        </div>
     </main>
     <div class="modal fade" id="edit">
         <div class="modal-dialog">
@@ -96,6 +113,21 @@
     <script src="./js/jquery-ui.min.js"></script>
     <script src="./js/bootstrap.js"></script>
     <script>
+        $(document).ready(function () {
+            $("#panel").hide()
+        })
+        function login() {
+            let data = {
+                account: $("#acc").val(),
+                password: $("#ps").val()
+            }
+            if (data.account == "admin" && data.password == "1234") {
+                $("#login").hide()
+                $("#panel").show()
+            } else {
+                alert("帳號密碼錯誤")
+            }
+        }
         function del(id) {
         if (confirm("確定要刪除這筆資料嗎？")) {
             $.post("del.php",{id:id},function () {
