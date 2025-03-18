@@ -114,7 +114,12 @@
     <script src="./js/bootstrap.js"></script>
     <script>
         $(document).ready(function () {
-            $("#panel").hide()
+            if (localStorage.getItem("login") === "true") {
+                $("div#login").hide()
+                $("#panel").show()
+            } else {
+                $("#panel").hide()
+            }
         })
         function login() {
             let data = {
@@ -122,8 +127,9 @@
                 password: $("#ps").val()
             }
             if (data.account == "admin" && data.password == "1234") {
-                $("#login").hide()
+                $("div#login").hide()
                 $("#panel").show()
+                localStorage.setItem("login","true")
             } else {
                 alert("帳號密碼錯誤")
             }
